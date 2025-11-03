@@ -1,0 +1,7 @@
+- [x] Analyze all files displaying multiple nav bars and logo
+- [x] Remove individual nav bars from pages: FindProfessionalsNearMe.js
+- [x] Remove individual nav bars from pages: BookingHistory.js, Services.js
+- [x] Remove individual nav bars from pages: About.js, Contact.js
+- [ ] Adjust ProfessionalDashboard.js to not show Header (exclude Header for this page)
+- [ ] Add a new navigation section in Dashboard.js called "Services & Blog" with links to Find Professionals, Become a Professional, My Bookings, Booking History, Services
+- [ ] Test the changes to ensure no multiple nav bars and the new dashboard nav works

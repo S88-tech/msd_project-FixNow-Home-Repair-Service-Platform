@@ -9,34 +9,38 @@ import Button from '../components/Button';
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
   });
   const [loading, setLoading] = useState(false);
 
-  const { login } = useAuth();
+  // ✅ useAuth provides signin()
+  const { signin } = useAuth();
   const navigate = useNavigate();
 
+  // Handle input changes
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
+  // ✅ Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const result = await login(formData);
+      const result = await signin(formData);
 
       if (result.success) {
         toast.success('Welcome back!');
-        navigate('/dashboard');
+        navigate('/dashboard'); // Redirect after login
       } else {
-        toast.error(result.error || 'Login failed');
+        toast.error(result.error || 'Login failed. Please check your credentials.');
       }
     } catch (error) {
+      console.error('⚠️ Login error:', error);
       toast.error('An error occurred. Please try again.');
     } finally {
       setLoading(false);
@@ -44,8 +48,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 py-8">
+    <div className="flex items-center justify-center min-h-screen px-4 py-8 bg-gray-50 dark:bg-gray-900">
       <div className="w-full max-w-md p-8 space-y-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+        {/* Logo / Icon */}
         <div className="text-center">
           <div className="inline-block p-3 bg-primary rounded-full mb-6">
             <Wrench className="text-white text-4xl" />
@@ -64,6 +69,7 @@ const Login = () => {
           </p>
         </div>
 
+        {/* Form */}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <FormInput
@@ -72,7 +78,7 @@ const Login = () => {
               type="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Email address"
+              placeholder="Enter your email"
               required
             />
 
@@ -82,7 +88,7 @@ const Login = () => {
               type="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Password"
+              placeholder="Enter your password"
               required
               showPasswordToggle
             />
